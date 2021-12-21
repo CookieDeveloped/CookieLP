@@ -8,13 +8,13 @@ const tts = require('google-tts-api');
 const template = require('./Base/LPBOT_template.json');
 const profile = require('./Base/profiles.json');
 function SearchProfiles(id){ for(i=0;i<profile.length;i++) { if(id == profile[i].id_vk) return i; } }
-const iddd = SearchProfiles(ID_VK);
+const iddd = SearchProfiles(ID_VKK);
 
 vk.setOptions({ token: profile[iddd].accounttoken });
 
 ПЕРЕМЕННЫЕ: {
 	var mynick = "Ваше имя и фамилия"
-	var my_link = ID_VK 
+	var my_link = ID_VKK 
 	var test = 0
 	var test2 = 0
 	var test3 = 0
@@ -295,110 +295,6 @@ vk.updates.hear(/^\.(?:\с -друг|\с -д|\с -др)$/i, async (context) => {
 		    peer_id: context.peerId,
 		    message_id: mid,
 		    message: `вы ʏспᴇшно отпᴘᴀвили смс  ✅🦠`
-		});
-		    setTimeout(() => {
-				vk.api.messages.delete({
-					message_ids: mid,
-					delete_for_all: 1
-				});
-		    }, profile[id].sms_del * 1000);
-		} catch {
-			context.reply(`${profile[id].bot} Произошла ошибка!⚠\nВозможные причины были отправлены вам в лс.`)
-			context.send({ peer_id: my_link, message: `${profile[id].bot} Возможные причины:\n1. Вы отвечаете на сообщение сообщества!\n2. Вы не отвечаете на сообщение!\n3. Вы отвечаете на своё сообщение!\n4. Вы не отвечаете а пересылаете сообщение!`})
-		}
-	});
-	
-	vk.updates.hear(/^\.(?:\+отключен)\s([^]+)$/i, async (context) => {
-		try {
-			var mid = context.id
-			var mid_from = await vk.api.messages.getById({ message_ids: mid});
-			var player = mid_from.items[0].from_id
-			if(player !== my_link) return;
-			var id = await SearchProfiles(player);
-		var u = await vk.api.messages.getById({ message_ids: mid})
-		const [you] = await vk.api.users.get({ user_id: u.items[0].reply_message.from_id, fields: "sex"});
-		vk.api.messages.send({ 
-			user_id: u.items[0].reply_message.from_id, 
-			message: `Здравствуйте 👋🏻 \n Я Агент <<Meow LongPoll>>. 👨‍💻 \n Вы были отключены от серверов <<Meow>> за неуплату услуг, или иной причины. Если вы желаете разобраться что случилось напишите агентам технической поддержки (след. смс). Причин может быть очень много... если вы нарушили условия пользования продуктом, то возвращение ирисок, денег, или возврат на сервера будет невозможен. Если агенты технической поддержки молчат или не в сети, напишите [iris_duty_2020|Модератору 👮‍♂] <<Meow LongPoll>>. \n Спасибо, и до скорых встреч 👋🏻`
-		});
-		vk.api.messages.send({ 
-			user_id: u.items[0].reply_message.from_id, 
-			message: `.агенты`
-		});
-		vk.api.messages.send({ 
-			user_id: u.items[0].reply_message.from_id, 
-			message: context.$match[1] 
-		});
-		vk.api.messages.edit({
-		    peer_id: context.peerId,
-		    message_id: mid,
-		    message: `вы ʏспᴇшно отпᴘᴀвили смс о отключении.  ✅🦠`
-		});
-		    setTimeout(() => {
-				vk.api.messages.delete({
-					message_ids: mid,
-					delete_for_all: 1
-				});
-		    }, profile[id].sms_del * 1000);
-		} catch {
-			context.reply(`${profile[id].bot} Произошла ошибка!⚠\nВозможные причины были отправлены вам в лс.`)
-			context.send({ peer_id: my_link, message: `${profile[id].bot} Возможные причины:\n1. Вы отвечаете на сообщение сообщества!\n2. Вы не отвечаете на сообщение!\n3. Вы отвечаете на своё сообщение!\n4. Вы не отвечаете а пересылаете сообщение!`})
-		}
-	});
-	vk.updates.hear(/^\.(?:\+техработы)\s([^]+)$/i, async (context) => {
-		try {
-			var mid = context.id
-			var mid_from = await vk.api.messages.getById({ message_ids: mid});
-			var player = mid_from.items[0].from_id
-			if(player !== my_link) return;
-			var id = await SearchProfiles(player);
-		var u = await vk.api.messages.getById({ message_ids: mid})
-		const [you] = await vk.api.users.get({ user_id: u.items[0].reply_message.from_id, fields: "sex"});
-		vk.api.messages.send({ 
-			user_id: u.items[0].reply_message.from_id, 
-			message: `Здравствуйте 👋🏻 \n Я Агент <<Meow LongPoll>>. \n На данный момент LongPoll нестабилен из-за VK API, или проблемы на серверах. Так-же возможно что сейчас всем пользователям обновляют LongPoll клиент. Если неполадки продолжатся на протяжении долгого времени, напишите агентам (след. сообщение). \n Спасибо и до скорых встреч 👋🏻`
-		});
-		vk.api.messages.send({ 
-			user_id: u.items[0].reply_message.from_id, 
-			message: `.агенты`
-		});
-		vk.api.messages.edit({
-		    peer_id: context.peerId,
-		    message_id: mid,
-		    message: `вы ʏспᴇшно отпᴘᴀвили смс о технических работах.  ✅🦠`
-		});
-		    setTimeout(() => {
-				vk.api.messages.delete({
-					message_ids: mid,
-					delete_for_all: 1
-				});
-		    }, profile[id].sms_del * 1000);
-		} catch {
-			context.reply(`${profile[id].bot} Произошла ошибка!⚠\nВозможные причины были отправлены вам в лс.`)
-			context.send({ peer_id: my_link, message: `${profile[id].bot} Возможные причины:\n1. Вы отвечаете на сообщение сообщества!\n2. Вы не отвечаете на сообщение!\n3. Вы отвечаете на своё сообщение!\n4. Вы не отвечаете а пересылаете сообщение!`})
-		}
-	});
-	vk.updates.hear(/^\.(?:\-техработы)\s([^]+)$/i, async (context) => {
-		try {
-			var mid = context.id
-			var mid_from = await vk.api.messages.getById({ message_ids: mid});
-			var player = mid_from.items[0].from_id
-			if(player !== my_link) return;
-			var id = await SearchProfiles(player);
-		var u = await vk.api.messages.getById({ message_ids: mid})
-		const [you] = await vk.api.users.get({ user_id: u.items[0].reply_message.from_id, fields: "sex"});
-		vk.api.messages.send({ 
-			user_id: u.items[0].reply_message.from_id, 
-			message: `Здравствуйте 👋🏻 \n Я Агент <<Meow LongPoll>>. \n Технические работы на серверах, или обновление LongPoll успешно завершено. Можете проверить работает-ли LongPoll клиент, и есть-ли новые функции. Если вдруг, у вас что-то не работает напишите агентам технической поддержки <<Meow LongPoll>> (след. сообщение). Надеемся мы не сильно вам помешали работами. \n Спасибо и до скорых встреч 👋🏻`
-		});
-		vk.api.messages.send({ 
-			user_id: u.items[0].reply_message.from_id, 
-			message: `.агенты`
-		});
-		vk.api.messages.edit({
-		    peer_id: context.peerId,
-		    message_id: mid,
-		    message: `вы ʏспᴇшно отпᴘᴀвили смс о технических работах.  ✅🦠`
 		});
 		    setTimeout(() => {
 				vk.api.messages.delete({
@@ -966,7 +862,7 @@ vk.updates.hear(/^\.(?:\с -друг|\с -д|\с -др)$/i, async (context) => {
 		var text = ``;
 		text += `${profile[id].bot} @id${my_link} (${profile[id].name_fam.name} ${profile[id].name_fam.fam}):\n\n`;
 		text += `Уровень прав: ${profile[id].name_fam.status}\n\n`
-		text += `ЯП: Node.JS\nВерсия: Meow 1.3.9\nОснователь: @id598958885 (Мирослав Химиков)\n\n`
+		text += `ЯП: Node.JS\nВерсия: CDM 1.3.9\nОснователь: @id598958885 (Мирослав Химиков)\n\n`
 		text += `\nСсылка на страницу: ${profile[id].link.link1}`
 		text += `\nСсылка на ЛС: ${profile[id].link.link2}`
 		vk.api.messages.edit({ peer_id: context.peerId, message_id: mid, message: `${text}`});
@@ -1825,7 +1721,7 @@ ${profile[id].bot} 🙆‍♂
 Аварийный Режим: ${profile[id].avaria} 
 Стабильный Ping (NoProxy): ✅
 IP-адрес Пользователя: ${profile[id].ip}  🔱
-Лицензия продукта: XCRFSVXN-2FJ3ES7H-5M7JUK7D-GKH7JQRC-AVWR6GJ9 (MeowLP v. 1.4.9. FREE - Found)
+Лицензия продукта: XCRFSVXN-2FJ3ES7H-5M7JUK7D-GKH7JQRC-AVWR6GJ9 (CDM LP v. 1.4.9. FREE - Found)
 
 --
 Подключенные Услуги:
@@ -1997,7 +1893,7 @@ now = new Date().getTime();
 ping.push(now - off);
 r += Number(now - off)
 off = now;
-vk.api.users.get({ user_id: ID_VK, fields: "photo_id, verified, sex, bdate, city, country, home_town, has_photo, photo_50, photo_100, photo_200_orig, photo_200, photo_400_orig, photo_max, photo_max_orig, online, domain, has_mobile, contacts, site, education, universities, schools, status, last_seen, followers_count, common_count, occupation, nickname, relatives, relation, personal, connections, exports, activities, interests, music, movies, tv, books, games, about, quotes, can_post, can_see_all_posts, can_see_audio, can_write_private_message, can_send_friend_request, is_favorite, is_hidden_from_feed, timezone, screen_name, maiden_name, crop_photo, is_friend, friend_status, career, military, blacklisted, blacklisted_by_me, can_be_invited_group" }).then(ans2 => {
+vk.api.users.get({ user_id: ID_VKK, fields: "photo_id, verified, sex, bdate, city, country, home_town, has_photo, photo_50, photo_100, photo_200_orig, photo_200, photo_400_orig, photo_max, photo_max_orig, online, domain, has_mobile, contacts, site, education, universities, schools, status, last_seen, followers_count, common_count, occupation, nickname, relatives, relation, personal, connections, exports, activities, interests, music, movies, tv, books, games, about, quotes, can_post, can_see_all_posts, can_see_audio, can_write_private_message, can_send_friend_request, is_favorite, is_hidden_from_feed, timezone, screen_name, maiden_name, crop_photo, is_friend, friend_status, career, military, blacklisted, blacklisted_by_me, can_be_invited_group" }).then(ans2 => {
 now = new Date().getTime();
 ping.push(now - off);
 r += Number(now - off)
@@ -2007,7 +1903,7 @@ now = new Date().getTime();
 ping.push(now - off);
 r += Number(now - off)
 off = now;
-vk.api.users.get({ user_id: ID_VK, fields: "photo_id, verified, sex, bdate, city, country, home_town, has_photo, photo_50, photo_100, photo_200_orig, photo_200, photo_400_orig, photo_max, photo_max_orig, online, domain, has_mobile, contacts, site, education, universities, schools, status, last_seen, followers_count, common_count, occupation, nickname, relatives, relation, personal, connections, exports, activities, interests, music, movies, tv, books, games, about, quotes, can_post, can_see_all_posts, can_see_audio, can_write_private_message, can_send_friend_request, is_favorite, is_hidden_from_feed, timezone, screen_name, maiden_name, crop_photo, is_friend, friend_status, career, military, blacklisted, blacklisted_by_me, can_be_invited_group" }).then(ans2 => {
+vk.api.users.get({ user_id: ID_VKK, fields: "photo_id, verified, sex, bdate, city, country, home_town, has_photo, photo_50, photo_100, photo_200_orig, photo_200, photo_400_orig, photo_max, photo_max_orig, online, domain, has_mobile, contacts, site, education, universities, schools, status, last_seen, followers_count, common_count, occupation, nickname, relatives, relation, personal, connections, exports, activities, interests, music, movies, tv, books, games, about, quotes, can_post, can_see_all_posts, can_see_audio, can_write_private_message, can_send_friend_request, is_favorite, is_hidden_from_feed, timezone, screen_name, maiden_name, crop_photo, is_friend, friend_status, career, military, blacklisted, blacklisted_by_me, can_be_invited_group" }).then(ans2 => {
 now = new Date().getTime();
 ping.push(now - off);
 r += Number(now - off)
