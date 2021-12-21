@@ -1,0 +1,30 @@
+{
+  "name": "duty",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
+  "dependencies": {
+    "-": "^0.0.1",
+    "canvas": "^2.6.1",
+    "cheerio": "^1.0.0-rc.10",
+    "fs": "^0.0.1-security",
+    "google-translate-api": "^2.3.0",
+    "google-tts-api": "^0.0.4",
+    "nightmare": "^3.0.2",
+    "node-qiwi-api": "^2.2.1",
+    "petrovich": "^0.2.1",
+    "ping": "^0.2.3",
+    "request": "^2.88.2",
+    "save": "^2.4.0",
+    "tcp-ping": "^0.1.1",
+    "utils.random": "^1.0.1",
+    "vk-io": "^4.0.3",
+    "vk-io-question": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maksim Moiseev",
+  "license": "ISC"
+}
